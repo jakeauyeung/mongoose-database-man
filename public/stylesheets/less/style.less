@@ -1,0 +1,139 @@
+// 导入混合（Mixins）模块
+@import 'mixin.less';
+// 导入变量（var）模块
+@import 'var.less';
+
+body{
+	font-family: "微软雅黑";
+	font-size:14px;
+	background-color: #191919;
+	background-image:url(../../images/planets.png),url(../../images/stars.png),url(../../images/noise.png);
+	background-repeat:no-repeat,repeat,repeat;
+	background-position:center -130px,100% 122px,0 0
+}
+.home{
+	&:before{
+		background: url(../../images/mts-bottom-transparent.png) repeat-x center bottom;
+		content: '';
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		z-index: -1;
+		.opacity(0.4,40);
+	}
+}
+
+.login-panel{
+	width: 640px;
+	height: 300px;
+	position:absolute;  
+	left:50%;  
+	top:50%;  
+	margin:-150px 0 0 -320px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color:rgba(0,0,0,0.45);
+	color: #fff;
+	h4{
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		-moz-border-top-left-radius: 10px;
+		-webkit-border-top-right-radius: 10px;
+		-moz-border-top-left-radius: 10px;
+		-webkit-border-top-right-radius: 10px;
+		margin: 0;
+		padding: 10px 0 10px 10px;
+		font-size: 16px;
+		color: #fff;
+		background-color: #cd202c;
+	}
+	.pure-form-aligned {
+		padding: 30px 60px;
+		.pure-control-group{
+			margin-bottom: 2em;
+		}
+	}
+	.pure-button-primary{
+		color: white;
+	  border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  -webkit-border-radius: 5px;
+	  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	  background: rgb(28, 184, 65);
+	}
+}
+
+
+.nav{
+	height: 40px;
+	background-color: #010101;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	.box-shadow(0px,3px,3px,0px,rgba(0, 0, 0, 0.75));
+	.logo{
+		display: inline-block;
+		height: 40px;
+		line-height: 48px;
+		padding: 0 20px;
+		background-color: #cd202c;
+		color: #fff;
+		float: left;
+	}
+	ul{
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		*zoom:1;
+		float: left;
+		li {
+			float: left;
+				a{
+				display: block;
+				float: left;
+				padding: 0 20px;
+				margin-right:15px; 
+				color: #fff;
+				line-height: 40px;
+				height: 40px;
+				text-decoration: none;
+				color: #ccc;
+				&:hover{
+					background-color: #cd202c;
+				}
+			}
+		}
+		.cur{
+			background-color: #333;
+		}
+		&:before{
+			clear: both;
+			display: table;
+			content: '';
+		}
+	}
+
+}
+
+.success-tips,.error-tips{
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	padding: 10px;
+	border:2px dashed #fff;
+	color: #fff;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	-webkit-opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+.success-tips{
+	background: rgb(28, 184, 65);
+}
+.error-tips{
+	background-color: #cd202c;
+}
+

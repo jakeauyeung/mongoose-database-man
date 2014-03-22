@@ -1,0 +1,23 @@
+// 圆角边框
+.border-radius(@radius: 5px){
+  border-radius: @radius;
+  -o-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+// 透明度
+.opacity(@opacitySetting: 0.9,@opacitySettingIe: 90){
+  opacity:@opacitySetting;
+  -moz-opacity:@opacitySetting;
+  -webkit-opacity:@opacitySetting;
+  -o-opacity:@opacitySetting;
+  filter:alpha(opacity=@opacitySettingIe); 
+}
+
+// 边框阴影
+.box-shadow(...){
+  box-shadow:@arguments; 
+  -moz-box-shadow:@arguments;
+  -webkit-box-shadow:@arguments;
+  -o-box-shadow:@arguments;
+}

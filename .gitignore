@@ -1,0 +1,5 @@
+# Mac crap
+.DS_Store
+access.log
+error.log
+node_modules
