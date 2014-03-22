@@ -1,5 +1,4 @@
 <% include header %>
-<% if (user) { %>
 <nav class="nav">
 	<span class="logo"><i class="fa fa-maxcdn fa-2x"></i>&nbsp;B5M</span>
 	<ul>
@@ -12,34 +11,29 @@
 	</ul>
 </nav>
 <div class="login-panel">
-    <h4><i class="fa fa-cog fa-spin"></i>&nbsp;<%= title %></h4>
-		    <form class="pure-form pure-form-stacked" method="post">
-	        <label for="jsonFile">json</label>
-	        <textarea id="jsonFile" name="userJson" rows="6" cols="70"></textarea>
-	        <button type="submit" class="pure-button pure-button-primary">添加</button>
-			</form>
-    </div>
-    <style>
-    .login-panel{
-				width: 640px;
-				height: 300px;
-				position:absolute;  
-				left:50%;  
-				top:50%;  
-				margin:-150px 0 0 -320px;
-				border-radius: 10px;
-				-moz-border-radius: 10px;
-				-webkit-border-radius: 10px;
-				background-color:rgba(0,0,0,0.45);
-				color: #fff;
-			}
-			.pure-form {
-				margin: 20px 0 0 40px;
-			}
-    </style>
-<% } else { %>
-<% include login %>
-<% } %>
-
-    
+<h4><i class="fa fa-cog fa-spin"></i>&nbsp;<%= title %></h4>
+    <form class="pure-form pure-form-stacked" method="post">
+      <label for="jsonFile">json</label>
+      <textarea id="jsonFile" name="userJson" rows="6" cols="70"></textarea>
+      <button type="submit" class="pure-button pure-button-primary">添加</button>
+	</form>
+</div>
+<style>
+.login-panel{
+		width: 640px;
+		height: 300px;
+		position:absolute;  
+		left:50%;  
+		top:50%;  
+		margin:-150px 0 0 -320px;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		background-color:rgba(0,0,0,0.45);
+		color: #fff;
+	}
+	.pure-form {
+		margin: 20px 0 0 40px;
+	}
+</style>
 <% include footer %>

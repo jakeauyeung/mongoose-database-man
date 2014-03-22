@@ -10,8 +10,7 @@
 ###框架
 
 * express
-* flash
-* connect-mongo
+* session-mongo
 * connect-flash
 * less-middleware
 * mongoose
@@ -20,6 +19,9 @@
 
 * mongodb
 
+###install
+> npm install
+> node app / supervisor app
 
 预览：
 ![mongoadmin](http://jakeauyeung.qiniudn.com/mongoadmin.png)

@@ -4,43 +4,64 @@
  */
 var crypto = require('crypto'),
     fs = require('fs'),
-    // Question = require('../models/question.js'),
+    Question = require('../models/question.js'),
     User = require('../models/user.js');
 
 module.exports = function(app) {
 	app.get('/', function(req, res){
 		res.render('index', { 
-			title: '数据库管理-登录',
-			newUser: req.session.user,
+			title: '登录',
+			User: req.session.user,
 	    success: req.flash('success').toString(),
 	    error: req.flash('error').toString()
 		});
 	});
 	app.post('/', function(req, res){
+
 			//生成密码的 md5 值
   		var md5 = crypto.createHash('md5'),
       password = md5.update(req.body.password).digest('hex');
 		  //检查用户是否存在
 		  User.get({name:req.body.name,password:password}, function (err, users) {
-		    if (!users) {
+		    if (!users.toString()) {
 		      req.flash('error', '用户不存在!'); 
 		      return res.redirect('/');//用户不存在则跳转到登录页
 		    }
 		    //检查密码是否一致
-		    if (users.password != password) {
+		    if (users[0].password != password) {
 		      req.flash('error', '密码错误!'); 
 		      return res.redirect('/');//密码错误则跳转到登录页
 		    }
+		    var newUser = {
+					name:req.body.name,
+					password:password
+				};
 		    //用户名密码都匹配后，将用户信息存入 session
 		    req.session.user = newUser;
 		    req.flash('success', '登陆成功!');
 		    res.redirect('/');//登陆成功后跳转到主页
 		  });
 	});
+	app.get('/view', checkLogin);
+	app.get('/view', function(req, res){
+		Question.getAll(function(err, questions){
+			console.log(questions)
+			res.render('view', {
+			title: '查看',
+			questions: questions,
+			success: req.flash('success').toString(),
+	    error: req.flash('error').toString()
+		});
+		});
+		
+
+	});
+	app.post('/view', function(req, res){});
+	app.get('/reg', checkNotLogin);
 	app.get('/reg', function(req, res){
 		res.render('reg', { 
-			title: '数据库管理-注册',
-			newUser: req.session.user,
+			title: '注册',
+			User: req.session.user,
 	    success: req.flash('success').toString(),
 	    error: req.flash('error').toString()
 		});
@@ -78,10 +99,10 @@ module.exports = function(app) {
 		  });
 	  });
 	});
+	app.get('/add', checkLogin);
 	app.get('/add', function(req, res){
 			res.render('add', { 
-				title: '数据库管理-添加',
-				user: req.session.user,
+				title: '添加',
 		    success: req.flash('success').toString(),
 		    error: req.flash('error').toString()
 			});
@@ -89,13 +110,16 @@ module.exports = function(app) {
 	app.post('/add', function(req, res){
 		var content = req.body.userJson,
 				json = JSON.parse(content);
-		var newQuestion = new Question({
+		var newQuestion = {
 	      name: json.name,
-	      password: json.password,
-	      email: json.email
-	  });
-	  console.log(json);
-		newQuestion.save(function (err, user) {
+	      password: json.password
+	  };
+	  Question.get({name:newQuestion.name}, function(err, questions){
+	  	if(questions.toString()){
+	  		req.flash('error', '数据已经存在');
+	  		return res.redirect('/add');//返回注册页
+	  	}
+	  	Question.save(newQuestion,function (err) {
 	      if (err) {
 	        req.flash('error', err);
 	        return res.redirect('/add');//注册失败返回主册页
@@ -103,10 +127,28 @@ module.exports = function(app) {
 	      req.flash('success', '添加成功!');
 	      res.redirect('/add');//注册成功后返回主页
 	    });
+	  })
+		
 	});
 	app.get('/logout', function (req, res) {
 	  req.session.user = null;
 	  req.flash('success', '登出成功!');
 	  res.redirect('/');//登出成功后跳转到主页
 	});
+
+	function checkLogin(req, res, next) {
+  if (!req.session.user) {
+    req.flash('error', '未登录!'); 
+    res.redirect('/');
+  }
+  next();
+}
+
+function checkNotLogin(req, res, next) {
+  if (req.session.user) {
+    req.flash('error', '已登录!'); 
+    res.redirect('back');//返回之前的页面
+  }
+  next();
+}
 }

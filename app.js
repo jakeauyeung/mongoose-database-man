@@ -7,7 +7,11 @@ var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
-var MongoStore = require('connect-mongo')(express);
+var SessionStore = require('session-mongoose')(express);
+var store = new SessionStore({
+  url: 'mongodb://localhost/session',
+  intercal: 120000
+})
 var settings = require('./settings');
 var lessMiddleware = require('less-middleware');
 var flash = require('connect-flash');
@@ -32,11 +36,8 @@ app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({
   secret: settings.cookieSecret,
-  key: settings.db,//cookie name
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
-  store: new MongoStore({
-    db: settings.db
-  })
+  store: store
 }));
 app.use(app.router);
 app.use(lessMiddleware('/stylesheets/less', {
