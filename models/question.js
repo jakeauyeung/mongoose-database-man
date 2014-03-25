@@ -1,8 +1,15 @@
 var mongodb = require('./db');
 
 var Schema = mongodb.mongoose.Schema({
-  name: String,
-  password: String
+  id: Number,
+  recommend: Number,
+  title: String,
+  detail: String,
+  themes: {
+    title: String,
+    theme: Array
+  },
+  results: Array
 });
 
 var questionModule = mongodb.mongoose.model('question', Schema);

@@ -111,10 +111,14 @@ module.exports = function(app) {
 		var content = req.body.userJson,
 				json = JSON.parse(content);
 		var newQuestion = {
-	      name: json.name,
-	      password: json.password
+	      id: json.id,
+	      recommend: json.recommend,
+	      title: json.title,
+	      detail: json.detail,
+	      themes: json.themes,
+	      results: json.results
 	  };
-	  Question.get({name:newQuestion.name}, function(err, questions){
+	  Question.get({id:newQuestion.id}, function(err, questions){
 	  	if(questions.toString()){
 	  		req.flash('error', '数据已经存在');
 	  		return res.redirect('/add');//返回注册页

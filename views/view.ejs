@@ -13,11 +13,12 @@
 <div class="data-box">
 <% questions.forEach(function(question){ %>
 	<div class="data-list">
-		<h4><i class="fa fa-code-fork"></i> <%= question.name %></h4>
+		<h4><i class="fa fa-code-fork"></i> <%= question.title %></h4>
 		<div class="con">
 			<ul>
-				<li><label>name:</label><%= question.name %></li>
-				<li><label>password:</label><%= question.password %></li>
+				<li><label>name:</label><%= question.detail %></li>
+				<li><label>password:</label><%= question.themes %></li>
+				<li><label>password:</label><%= question.results %></li>
 			</ul>
 		</div>
 	</div>
